@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attendance Management System - Home</title>
+  <style>
+    /* CSS styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 10px 0;
+    }
+    nav {
+      background-color: #444;
+      color: #fff;
+      text-align: center;
+      width: 200px; 
+      float: left; 
+      height: 100vh; 
+      overflow-y: auto;
+    }
+    nav ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    nav ul li {
+      margin: 0;
+      padding: 10px;
+    }
+    a {
+      text-decoration: none;
+      color: #fff;
+    }
+    .container {
+      margin-left: 220px; 
+      padding: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      padding: 12px; /* increased padding for better visibility */
+      text-align: left;
+      border-bottom: 2px solid #ddd; /* increased border thickness */
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    form {
+      margin-top: 20px;
+    }
+    label {
+      font-weight: bold;
+    }
+    .attendance-btn {
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      color: #fff;
+      border: none;
+    }
+    .present {
+      background-color: #4CAF50;
+    }
+    .absent {
+      background-color: #f44336;
+    }
+    .attendance-btn:hover {
+      opacity: 0.8;
+    }
+    textarea {
+      width: 100%;
+      resize: vertical;
+    }
+    /* Modal CSS */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.4);
+    }
+    .modal-content {
+      background-color: #fefefe;
+      margin: 10% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      max-width: 500px;
+    }
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Attendance Management System</h1>
+</header>
+<nav>
+  <ul>
+    <li><a href="dashboardtest.html">Home</a></li>
+    <li><a href="students.html">Students</a></li>
+    <li><a href="Attendance-records.html">Attendance Records</a></li>
+    <li><a href="settings.html">Settings</a></li>
+  </ul>
+</nav>
+<div class="container">
+  <h2>Student Attendance</h2>
+  
+  <!-- Date selection -->
+  <label for="attendance-date">Select Date:</label>
+  <input type="date" id="attendance-date">
+  
+  <table id="student-table">
+    <!-- Table headers -->
+    <thead>
+      <tr>
+        <th>Student Name</th>
+        <th>Attendance</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Student rows will be dynamically added here -->
+    </tbody>
+  </table>
+
+  <!-- Add student form -->
+  <form id="add-student-form">
+    <h3>Add New Student</h3>
+    <div>
+      <label for="new-student-name">Student Name:</label>
+      <input type="text" id="new-student-name" required>
+    </div>
+    <div>
+      <label for="new-student-attendance">Attendance:</label>
+      <select id="new-student-attendance" required>
+        <option value="present">Present</option>
+        <option value="absent">Absent</option>
+      </select>
+    </div>
+    <button type="submit">Add Student</button>
+  </form>
+
+  <!-- Attendance Report Section -->
+  <div>
+    <h3>Attendance Report</h3>
+    <button id="generate-report-btn">Generate Report</button>
+    <textarea id="attendance-report" rows="10" readonly></textarea>
+  </div>
+</div>
+
+<!-- Edit Student Modal -->
+<div id="editStudentModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Edit Student</h2>
+    <input type="hidden" id="edit-student-index">
+    <div>
+      <label for="edit-student-name">Student Name:</label>
+      <input type="text" id="edit-student-name" required>
+    </div>
+    <div>
+      <label for="edit-student-attendance">Attendance:</label>
+      <select id="edit-student-attendance" required>
+        <option value="present">Present</option>
+        <option value="absent">Absent</option>
+      </select>
+    </div>
+    <button id="save-edit-btn" class="attendance-btn present">Save Changes</button>
+  </div>
+</div>
+
+<!-- Delete Student Modal -->
+<div id="deleteStudentModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Delete Student</h2>
+    <p>Are you sure you want to delete this student?</p>
+    <input type="hidden" id="delete-student-index">
+    <button id="confirm-delete-btn" class="attendance-btn absent">Confirm Delete</button>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Function to toggle attendance status
+    function toggleAttendance(button) {
+      if (button.classList.contains('present')) {
+        button.classList.remove('present');
+        button.classList.add('absent');
+        button.textContent = 'Absent';
+      } else {
+        button.classList.remove('absent');
+        button.classList.add('present');
+        button.textContent = 'Present';
+      }
+    }
+
+    // Function to add a new student to the table
+    function addStudentToTable(studentName, attendance) {
+      var studentTableBody = document.querySelector('#student-table tbody');
+      var newRow = studentTableBody.insertRow();
+      var cellName = newRow.insertCell(0);
+      var cellAttendance = newRow.insertCell(1);
+      var cellAction = newRow.insertCell(2);
+
+      cellName.textContent = studentName;
+      var button = document.createElement('button');
+      button.className = 'attendance-btn ' + attendance;
+      button.textContent = attendance.charAt(0).toUpperCase() + attendance.slice(1);
+      button.addEventListener('click', function() {
+        toggleAttendance(this);
+      });
+      cellAttendance.appendChild(button);
+
+      var editButton = document.createElement('button');
+      editButton.textContent = 'Edit';
+      editButton.addEventListener('click', function() {
+        openEditModal(newRow.rowIndex - 1); // Pass the row index for editing
+      });
+      cellAction.appendChild(editButton);
+
+      var deleteButton = document.createElement('button');
+      deleteButton.textContent = 'Delete';
+      deleteButton.addEventListener('click', function() {
+        openDeleteModal(newRow.rowIndex - 1); // Pass the row index for deletion
+      });
+      cellAction.appendChild(deleteButton);
+    }
+
+    // Function to open Edit Student Modal
+    function openEditModal(index) {
+      var student = document.getElementById('student-table').rows[index + 1].cells[0].textContent;
+      var attendance = document.getElementById('student-table').rows[index + 1].cells[1].querySelector('button').classList.contains('present') ? 'present' : 'absent';
+      document.getElementById('edit-student-index').value = index;
+      document.getElementById('edit-student-name').value = student;
+      document.getElementById('edit-student-attendance').value = attendance;
+      document.getElementById('editStudentModal').style.display = 'block';
+    }
+
+    // Function to close Edit Student Modal
+    document.querySelector('#editStudentModal .close').addEventListener('click', function() {
+      document.getElementById('editStudentModal').style.display = 'none';
+    });
+
+    // Function to open Delete Student Modal
+    function openDeleteModal(index) {
+      document.getElementById('delete-student-index').value = index;
+      document.getElementById('deleteStudentModal').style.display = 'block';
+    }
+
+    // Function to close Delete Student Modal
+    document.querySelector('#deleteStudentModal .close').addEventListener('click', function() {
+      document.getElementById('deleteStudentModal').style.display = 'none';
+    });
+
+    // Event listener for generating attendance report
+    document.getElementById('generate-report-btn').addEventListener('click', function() {
+      var reportTextarea = document.getElementById('attendance-report');
+      var rows = document.querySelectorAll('#student-table tbody tr');
+      var report = '';
+      rows.forEach(function(row) {
+        var studentName = row.cells[0].textContent;
+        var attendance = row.cells[1].querySelector('button').classList.contains('present') ? 'Present' : 'Absent';
+        report += studentName + ': ' + attendance + '\n';
+      });
+      reportTextarea.value = report;
+    });
+
+    // Date selection event listener
+    document.getElementById('attendance-date').addEventListener('change', function() {
+      var selectedDate = this.value;
+      // You can use the selected date to manage attendance accordingly
+      console.log('Selected date:', selectedDate);
+      // Here, you can update the attendance based on the selected date
+    });
+
+    // Event listener for adding a new student
+    document.getElementById('add-student-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      var studentName = document.getElementById('new-student-name').value.trim();
+      var attendance = document.getElementById('new-student-attendance').value;
+      if (studentName) {
+        addStudentToTable(studentName, attendance);
+        document.getElementById('add-student-form').reset();
+      } else {
+        alert("Please fill out the student name.");
+      }
+    });
+
+    // Event listener for deleting a student
+    document.getElementById('confirm-delete-btn').addEventListener('click', function() {
+      var index = document.getElementById('delete-student-index').value;
+      document.getElementById('student-table').deleteRow(parseInt(index) + 1); // Delete corresponding row
+      document.getElementById('deleteStudentModal').style.display = 'none'; // Close modal
+    });
+
+  });
+</script>
+</body>
+</html>
+
