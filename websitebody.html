@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The MAGNIFICAT Student Portal</title>
-    <!-- Link to Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="https://fonts.cdnfonts.com/css/old-english-five" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -137,11 +136,14 @@
 
         .widget {
             display: none;
-            padding: 20px;
+            padding: 15px 24px;
             background-color: #ffffff;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0);
             margin-top: 20px;
+            max-width: 100%;
+            
+            
         }
 
         .widget h3 {
@@ -224,10 +226,6 @@
             background-color: #1f8adc;
         }
 
-    
-
-        
-
 
     </style>
 </head>
@@ -246,10 +244,10 @@
     <nav class="navbar navbar-expand-lg">
         <ul class="navbar-nav mr-auto">
             <img src="img/logo.png" class="logo2"> 
-            <li class="nav-item"><a class="nav-link" href="#home" onclick="smoothScroll('home')">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="#home" onclick="smoothScroll('home')">School</a></li>
             <li class="nav-item"><a class="nav-link" href="#about" onclick="smoothScroll('about')">About</a></li>
-            <li class="nav-item"><a class="nav-link" href="#contact" onclick="smoothScroll('contact')">Contact</a></li>
-            <li class="nav-item"><a class="nav-link" href="attendance.html">Attendance</a></li>
+            <li class="nav-item"><a class="nav-link" href="#Attendance" onclick="smoothScroll('contact')">Attendance</a></li>
+            <li class="nav-item"><a class="nav-link" href="#Images" onclick="smoothScroll('Images')">Images</a></li>
         </ul>
     </nav>
 
@@ -257,12 +255,11 @@
         <h2 class="text-center" style="font-size:250%;">The MAGNIFICAT Student Portal</h2>
         <p class="text-center" style="font-size:150%">Explore the world of education with us.</p>
     </section>
-
     <section id="home">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-6">
-                    <h2 style="font-size:200%;">Home Section</h2>
+                    <h2 style="font-size:200%;">Our School</h2>
                     <p style="font-size:100%;">School of Mount St. Mary, Inc. features academically empowered learners, exceptionally well-trained teachers, well-mannered faculty staffs and non-staffs.</p>
                     <button onclick="toggleWidget()" class="btn btn-primary" style="font-size: 2vw;">Explore Features</button>
                  </div>
@@ -278,8 +275,9 @@
                  </div>
             </div>
             <div class="widget" id="homeWidget">
-                <h3 style="font-size: 200%;">Additional Features</h3>
-                <p stlye="font-size: 100%">Discover more about our home section. We offer personalized learning, interactive courses, and much more.</p>
+                <h3>Additional Features</h3>
+                <p>Discover more about our home section. We offer personalized learning, interactive courses, and much more.</p>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/OHrfPIOylB4" frameborder="0" allowfullscreen></iframe>
             </div>
         </div>
     </section>
@@ -291,32 +289,37 @@
                     <img src="img/one.jpg" alt="smsm building" class="one">
                 </div>
                 <div class="col-md-6">
-                    <h2 style="font-size: 200%;">About Section</h2>
+                    <h2 style="font-size: 200%;">About the School</h2>
                      <p style="font-size: 100%;"> It offers Preschool, Grade School, Junior High School, and Senior High School with academic strands such as Science Technology and Engineering (STEM), Accountancy Business Management (ABM), General Academic Strand (GAS), and Humanities and Social Sciences (HUMSS).</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="contact">
+    <section id="Attendance">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-6">
-                    <h2 style="font-size: 200%;">Contact Section</h2>
-                    <p style="font-size: 100%;">Get in touch with us. We value your feedback. Fill out the form below to reach out.</p>
-                    <form onsubmit="return validateForm()">
-                        <div class="form-group">
-                            <label for="email">Email:</label>
-                            <input type="email" id="email" name="email" class="form-control" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
+                    <h2 style="font-size: 200%;">Attendance Section</h2>
+                    <p style="font-size: 100%;">Access your Attendance information by entering your personal email given to you. </p>
+
+                    <div id="login-container">
+                        <form id="loginForm" action="index3.html" method="post">
+                            <label for="email">Email:</label><br>
+                            <input type="email" id="email" name="email" required><br>
+                            <label for="password">Password:</label><br>
+                            <input type="password" id="password" name="password" required><br>
+                    
+                            <button type="submit" value="Login">Login</button><p><a href="admin-login.html">If you're an Admin click here.</a></p>
+                        </form>
+
+                    </div>
                 </div>
                 <div class="col-md-6">
-                </div>
             </div>
         </div>
     </section>
+     
 
     <section id="countdown">
         <div class="container">
@@ -328,6 +331,8 @@
             </div>
         </div>
     </section>
+
+   
 
     <section class="bg-dark text-white py-5">
         <div class="container">
@@ -356,16 +361,12 @@
             <p>&copy; 2024 The MAGNIFICAT. All rights reserved.</p>
         </div>
     </footer>
-
-    <!-- Link to Bootstrap JS and Popper.js (required for Bootstrap) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!-- Link to Font Awesome JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
 
     <script>
-        // Smooth scrolling function
         function smoothScroll(targetId) {
             const targetElement = document.getElementById(targetId);
             if (targetElement) {
@@ -375,10 +376,8 @@
                 });
             }
         }
-
-        // Countdown timer function
         function setCountdown() {
-            const eventDate = new Date('2024-12-31T23:59:59'); // Replace with your event date
+            const eventDate = new Date('2024-12-31T23:59:59');
             const currentDate = new Date();
 
             const timeDifference = eventDate - currentDate;
@@ -391,24 +390,32 @@
             document.getElementById('countdownTimer').innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
         }
 
-        // Update countdown every second
         setInterval(setCountdown, 1000);
-        setCountdown(); // Call it once to initialize the countdown immediately
+        setCountdown(); 
+      
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+      event.preventDefault(); 
+      
+      var email = document.getElementById('email').value;
+      var password = document.getElementById('password').value;
+      
+      var users = [
+        { email: 'charlotte00@gmail.com', password: 'charlotte00' },
+        { email: 'nicole01@gmail.com', password: 'nicole01' },
+      ];
 
-        // Form validation function
-        function validateForm() {
-            const emailInput = document.getElementById('email');
-            const emailValue = emailInput.value.trim();
+     
+      var validUser = users.find(function(user) {
+        return user.email === email && user.password === password;
+      });
 
-            if (!isValidEmail(emailValue)) {
-                alert('Please enter a valid email address.');
-                return false;
-            }
+      if (validUser) {
+        window.location.href = 'index3.html';
+      } else {
+        alert('Invalid email or password. Please try again.');
+      }
+    });
 
-            // Additional validation logic can be added here
-
-            return true;
-        }
 
         // Simple email validation function
         function isValidEmail(email) {
@@ -427,7 +434,23 @@
             }
         }
 
-        
+        var slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+      showSlides(slideIndex += n);
+    }
+
+    function showSlides(n) {
+      var i;
+      var slides = document.getElementsByClassName("slide");
+      if (n > slides.length) {slideIndex = 1}
+      if (n < 1) {slideIndex = slides.length}
+      for (i = 0; i < slides.length; i++) {
+          slides[i].classList.remove("active");
+      }
+      slides[slideIndex-1].classList.add("active");
+    }
     </script>
 
 </body>
