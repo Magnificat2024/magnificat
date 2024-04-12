@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Management Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* styles.css */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        nav {
+            background-color: #444;
+            color: #fff;
+            text-align: center;
+            width: 200px; 
+            float: left; 
+            height: 100vh; 
+            overflow-y: auto; /* Added scrolling for navigation */
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin: 0;
+            padding: 10px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .main-content {
+            margin: 20px;
+            margin-left: 220px; 
+            display: grid; /* Added for grid layout */
+            grid-template-columns: repeat(2, 1fr); /* Two columns */
+            grid-gap: 20px; /* Gap between grid items */
+            overflow-y: auto; /* Added scrolling for content */
+            max-height: calc(100vh - 40px); /* Adjusted to fit within viewport */
+        }
+
+        .section {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%; /* Take full width of grid cell */
+        }
+
+        .total-students-window {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+            margin: 20px auto; /* Centered horizontally */
+            width: 300px;
+        }
+
+        .footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            clear: both; 
+            position: fixed; 
+            bottom: 0; 
+            width: 100%; 
+        }
+
+        .action-button {
+            background-color: #4CAF50; 
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .action-button:hover {
+            background-color: #45a049; 
+        }
+
+        /* Bar graph styles */
+        .bar-graph {
+            height: 30px;
+            background-color: #ddd;
+            border-radius: 5px;
+            margin-top: 10px;
+            width: 100%;
+            position: relative;
+        }
+
+        .bar {
+            height: 100%;
+            border-radius: 5px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .present-bar {
+            background-color: #4CAF50;
+        }
+
+        .absent-bar {
+            background-color: #F44336;
+        }
+        
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to the Attendance Management Dashboard</h1>
+    </header>
+    <nav>
+      <ul>
+          <li><a href="dashboardtest.html">Dashboard</a></li>
+          <li><a href="students.html">Students</a></li>
+          <li><a href="Attendance-records.html">Attendance Records</a></li>
+          <li><a href="#">Settings</a></li>
+          <!-- Add more navigation items if needed -->
+      </ul>
+  </nav>
+    <section class="main-content">
+        <div class="section attendance-summary">
+            <h2>Today's Attendance Overview</h2>
+            <p>Total Students: <span id="total-students">100</span></p>
+            <p>Present: <span id="present-students">85</span></p>
+            <p>Absent: <span id="absent-students">15</span></p>
+            <button class="action-button">Export Data</button>
+        </div>
+        <div class="section attendance-list">
+            <h2>Attendance List</h2>
+            <ul>
+                <li>Student 1 - Present</li>
+                <li>Student 2 - Absent</li>
+                <!-- Add more list items dynamically with JavaScript -->
+            </ul>
+            <button class="action-button">Take Attendance</button>
+        </div>
+        <div class="total-students-window">
+            <h2>Total Students</h2>
+            <p><span id="total-students-window-count">100</span></p>
+            <div class="bar-graph" id="barGraph">
+                <div class="bar present-bar" id="presentBar">85</div>
+                <div class="bar absent-bar" id="absentBar">15</div>
+            </div>
+        </div>
+    </section>
+    <script>
+        // Example JavaScript for updating attendance data
+        // You can replace this with actual dynamic data from your server
+        const totalStudents = 100; // Example value
+        const presentStudents = 85; // Example value
+        const absentStudents = 15; // Example value
+        
+        document.getElementById('total-students').innerText = totalStudents;
+        document.getElementById('present-students').innerText = presentStudents;
+        document.getElementById('absent-students').innerText = absentStudents;
+
+        // Update total students in the separate window
+        document.getElementById('total-students-window-count').innerText = totalStudents;
+
+        // Create and style bar elements based on student data
+        const presentBar = document.getElementById('presentBar');
+        presentBar.style.width = (presentStudents / totalStudents) * 100 + '%';
+        presentBar.innerText = presentStudents;
+
+        const absentBar = document.getElementById('absentBar');
+        absentBar.style.width = (absentStudents / totalStudents) * 100 + '%';
+        absentBar.innerText = absentStudents;
+    </script>
+</body>
+</html>
