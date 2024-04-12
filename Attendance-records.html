@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real-Time Attendance Data</title>
+  <style>
+    /* CSS styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 10px 0;
+    }
+    nav {
+      background-color: #444;
+      color: #fff;
+      text-align: center;
+      width: 200px; 
+      float: left; 
+      height: 100vh; 
+      overflow-y: auto;
+    }
+    nav ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    nav ul li {
+      margin: 0;
+      padding: 10px;
+    }
+    a {
+      text-decoration: none;
+      color: #fff;
+    }
+    .container {
+      margin-left: 220px; 
+      padding: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    form {
+      margin-top: 20px;
+    }
+    label {
+      font-weight: bold;
+    }
+    .attendance-btn {
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      color: #fff;
+      border: none;
+      transition: opacity 0.3s ease;
+    }
+    .present {
+      background-color: #4CAF50;
+    }
+    .absent {
+      background-color: #f44336;
+    }
+    .attendance-btn:hover {
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Real-Time Attendance Data</h1>
+</header>
+<nav>
+    <ul>
+      <li><a href="dashboardtest.html">Home</a></li>
+      <li><a href="students.html">Students</a></li>
+      <li><a href="attendance.html">Attendance Records</a></li>
+      <li><a href="settings.html">Settings</a></li>
+    </ul>
+  </nav>
+<div class="container">
+  <h2>Attendance Records</h2>
+  
+  <table id="attendance-table">
+    <!-- Table headers -->
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Student Name</th>
+        <th>Attendance</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Attendance data will be dynamically added here -->
+    </tbody>
+  </table>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Function to fetch and display attendance data
+    function fetchAttendanceData() {
+      // Simulate fetching data from server
+      // In a real scenario, you would fetch data via AJAX or from a database
+      var attendanceData = [
+        { date: '2024-04-15', studentName: 'John Doe', attendance: 'Present' },
+        { date: '2024-04-15', studentName: 'Jane Smith', attendance: 'Absent' },
+        { date: '2024-04-14', studentName: 'John Doe', attendance: 'Absent' },
+        { date: '2024-04-14', studentName: 'Jane Smith', attendance: 'Present' }
+        // Add more attendance data as needed
+      ];
+
+      // Clear existing table rows
+      var tableBody = document.querySelector('#attendance-table tbody');
+      tableBody.innerHTML = '';
+
+      // Populate table with attendance data
+      attendanceData.forEach(function(record) {
+        var row = tableBody.insertRow();
+        var cellDate = row.insertCell(0);
+        var cellName = row.insertCell(1);
+        var cellAttendance = row.insertCell(2);
+        cellDate.textContent = record.date;
+        cellName.textContent = record.studentName;
+
+        // Create attendance button
+        var attendanceButton = document.createElement('button');
+        attendanceButton.textContent = record.attendance;
+        attendanceButton.classList.add('attendance-btn');
+        if (record.attendance === 'Present') {
+          attendanceButton.classList.add('present');
+        } else if (record.attendance === 'Absent') {
+          attendanceButton.classList.add('absent');
+        }
+
+        // Append button to cell
+        cellAttendance.appendChild(attendanceButton);
+      });
+    }
+
+    // Fetch and display attendance data initially
+    fetchAttendanceData();
+
+    // Set interval to refresh attendance data every minute (for demonstration)
+    setInterval(fetchAttendanceData, 60000); // Update every minute
+  });
+</script>
+</body>
+</html>
+
