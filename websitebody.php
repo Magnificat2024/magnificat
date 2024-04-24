@@ -359,7 +359,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <label for="password">Password:</label><br>
                         <input type="password" id="password" name="password" required><br>
 
-                        <button type="submit" value="Login">Login</button><p><a href="/website/admin-login.html">If you're an Admin click here.</a></p>
+                        <button type="submit" value="Login">Login</button><p><a href="admin-login.html">If you're an Admin click here.</a></p>
                     </form>
                     
                 </div>
