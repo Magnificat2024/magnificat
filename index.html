@@ -96,6 +96,10 @@
             font-family: 'Times New Roman', sans-serif;
                                                 
         }
+        .Welcome {
+            color: #ffffff;
+            text-align: center;
+        }
 
 
     </style>
@@ -108,9 +112,10 @@
         <img src="img/logo.png" alt="Banner Image">
         <h3>School of Mount St. Mary, Inc.</h3>
     </header>
-
+ <section class="Welcome">
     <h1>Welcome to the MAGNIFICAT Student Portal!</h1>
-
+    <p>If you are an admin, please <a href="/website/admin-login.html" style="color: rgb(5, 222, 247);">click here</a></p>
+</section>
 <div id="login-container">
     <h2>Please Log In</h2>
     <form id="login-form" onsubmit="return loginUser()">
@@ -133,7 +138,7 @@
         // Simple validation (replace this with your authentication logic)
         if (username === 'magnificat@student' && password === 'password2') {
             alert('Login successful!');
-            window.location.href = 'https://magnificat2024.github.io/magnificat/websitebody.html' // Redirect to home screen
+            window.location.href = 'http://localhost/website/website.php' // Redirect to home screen
         } else {
             alert('Invalid username or password. Please try again.');
         }

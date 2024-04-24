@@ -7,22 +7,36 @@
   <style>
     /* CSS styles */
     body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
+        font-family: Arial, sans-serif;
+        padding: 0;
+        font-family: 'Arial', sans-serif;
+        background-color: #f8f9fa;
+        color: #383a3b;
+        font-family: 'Playfair Display', serif;
+        height: 100vh;
+        margin: 0;
+        background-image: url('img/background4.png'); 
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
     }
     header {
-      background-color: #333;
+      background-color: #0a0a4e;
       color: #fff;
       text-align: center;
       padding: 10px 0;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
     }
     nav {
-      background-color: #444;
+      background-color: #0a0a4e;
       color: #fff;
       text-align: center;
       width: 200px; 
-      float: left; 
+      position: fixed;
       height: 100vh; 
       overflow-y: auto;
     }
@@ -78,6 +92,19 @@
     .attendance-btn:hover {
       opacity: 0.8;
     }
+    .main-content {
+      padding-top: 60px; /* Height of fixed header */
+      padding-left: 220px; /* Width of fixed sidebar */
+      padding-right: 20px; /* Adjusted padding */
+      padding-bottom: 20px; /* Adjusted padding */
+      overflow-y: auto;
+      height: calc(100vh - 60px); /* Adjusted height */
+    }
+
+    .space{
+      padding: 2px;
+
+    }
   </style>
 </head>
 <body>
@@ -86,13 +113,19 @@
 </header>
 <nav>
     <ul>
-      <li><a href="dashboardtest.html">Home</a></li>
-      <li><a href="students.html">Students</a></li>
-      <li><a href="attendance.html">Attendance Records</a></li>
-      <li><a href="settings.html">Settings</a></li>
+      <li><a></a></li><br>
+      <li><a></a></li><br>
+      <li><a href="/website/dashboardtest.html">Dashboard</a></li>
+      <li><a href="/website/Attendance-records.html">Attendance Records</a></li>
+      <li><a href="http://localhost/website/qr-code-attendance-system/">Qr Code Scanner</a></li>
+      <li><a href="http://localhost/website/website.php">Logout</a></li>
     </ul>
   </nav>
-<div class="container">
+ <div class="space">
+  <h2>space</h2>
+ </div>
+
+  <div class="container" style="overflow-y: auto;">
   <h2>Attendance Records</h2>
   
   <table id="attendance-table">
@@ -161,4 +194,3 @@
 </script>
 </body>
 </html>
-
